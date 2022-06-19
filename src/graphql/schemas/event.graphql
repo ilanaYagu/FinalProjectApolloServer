@@ -1,0 +1,42 @@
+
+type Event {
+  _id: ID!
+  title: String!
+  description: String!
+  beginningTime: String!
+  endingTime: String!
+  color: String!
+  location: String!
+  notificationTime: String!
+  invitedGuests: [String!]!
+}
+
+extend type Query {
+  events: [Event!]!
+}
+
+input EventInput {
+  _id: ID
+  title: String!
+  description: String!
+  beginningTime: String!
+  endingTime: String!
+  color: String!
+  location: String!
+  notificationTime: String!
+  invitedGuests: [String!]!
+}
+
+extend type Mutation {
+  createEvent(data: EventInput!): Event!
+  updateEvent(data: EventInput!): Event
+  deleteEvent(id: ID!): Event
+}
+
+type subData {
+  _id: ID!
+  title: String!
+}
+extend type Subscription {
+  notificationOnIncomingEvent: [subData!]
+}

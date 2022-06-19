@@ -1,0 +1,46 @@
+
+enum PriorityType {
+  Low
+  Regular
+  Top
+}
+
+ enum StatusType {
+  Open
+  Proceeding
+  Done
+}
+
+type Task {
+  _id: ID!
+  title: String!
+  description: String!
+  estimatedTime: String!
+  status: StatusType!
+  priority: PriorityType!
+  review: String!
+  timeSpent: String!
+  untilDate: String!
+}
+
+extend type Query {
+  tasks: [Task!]!
+}
+
+input TaskInput {
+  _id: ID
+  title: String!
+  description: String!
+  estimatedTime: String!
+  status: StatusType!
+  priority: PriorityType!
+  review: String!
+  timeSpent: String!
+  untilDate: String!
+}
+
+extend type Mutation {
+  createTask(data: TaskInput): Task!
+  updateTask(data: TaskInput!): Task
+  deleteTask(id: ID!): Task
+}
