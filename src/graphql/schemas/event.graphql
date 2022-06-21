@@ -13,6 +13,7 @@ type Event {
 
 extend type Query {
   events: [Event!]!
+  todayEvents: [Event]!
 }
 
 input EventInput {
@@ -33,10 +34,10 @@ extend type Mutation {
   deleteEvent(id: ID!): Event
 }
 
-type subData {
+type notificationOnIncomingEventData {
   _id: ID!
   title: String!
 }
 extend type Subscription {
-  notificationOnIncomingEvent: [subData!]
+  notificationOnIncomingEvent: [notificationOnIncomingEventData!]
 }

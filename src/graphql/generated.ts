@@ -18,6 +18,8 @@ export type Query = {
   _empty?: Maybe<Scalars['String']>;
   events: Array<Event>;
   tasks: Array<Task>;
+  todayEvents: Array<Maybe<Event>>;
+  todayTasks: Array<Maybe<Task>>;
 };
 
 export type Mutation = {
@@ -64,7 +66,7 @@ export type MutationUpdateTaskArgs = {
 export type Subscription = {
   __typename?: 'Subscription';
   _empty?: Maybe<Scalars['String']>;
-  notificationOnIncomingEvent?: Maybe<Array<SubData>>;
+  notificationOnIncomingEvent?: Maybe<Array<NotificationOnIncomingEventData>>;
 };
 
 export type Event = {
@@ -92,26 +94,24 @@ export type EventInput = {
   invitedGuests: Array<Scalars['String']>;
 };
 
-export type SubData = {
-  __typename?: 'subData';
+export type NotificationOnIncomingEventData = {
+  __typename?: 'notificationOnIncomingEventData';
   _id: Scalars['ID'];
   title: Scalars['String'];
 };
 
-export const PriorityType = {
-  Low: 'Low',
-  Regular: 'Regular',
-  Top: 'Top'
-} as const;
+export enum PriorityType {
+  Low = 'Low',
+  Regular = 'Regular',
+  Top = 'Top'
+}
 
-export type PriorityType = typeof PriorityType[keyof typeof PriorityType];
-export const StatusType = {
-  Open: 'Open',
-  Proceeding: 'Proceeding',
-  Done: 'Done'
-} as const;
+export enum StatusType {
+  Open = 'Open',
+  Proceeding = 'Proceeding',
+  Done = 'Done'
+}
 
-export type StatusType = typeof StatusType[keyof typeof StatusType];
 export type Task = {
   __typename?: 'Task';
   _id: Scalars['ID'];
@@ -222,7 +222,7 @@ export type ResolversTypes = {
   Subscription: ResolverTypeWrapper<{}>;
   Event: ResolverTypeWrapper<Event>;
   EventInput: EventInput;
-  subData: ResolverTypeWrapper<SubData>;
+  notificationOnIncomingEventData: ResolverTypeWrapper<NotificationOnIncomingEventData>;
   PriorityType: PriorityType;
   StatusType: StatusType;
   Task: ResolverTypeWrapper<Task>;
@@ -239,7 +239,7 @@ export type ResolversParentTypes = {
   Subscription: {};
   Event: Event;
   EventInput: EventInput;
-  subData: SubData;
+  notificationOnIncomingEventData: NotificationOnIncomingEventData;
   Task: Task;
   TaskInput: TaskInput;
   Boolean: Scalars['Boolean'];
@@ -249,6 +249,8 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   _empty?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   events?: Resolver<Array<ResolversTypes['Event']>, ParentType, ContextType>;
   tasks?: Resolver<Array<ResolversTypes['Task']>, ParentType, ContextType>;
+  todayEvents?: Resolver<Array<Maybe<ResolversTypes['Event']>>, ParentType, ContextType>;
+  todayTasks?: Resolver<Array<Maybe<ResolversTypes['Task']>>, ParentType, ContextType>;
 };
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
@@ -263,7 +265,7 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
 
 export type SubscriptionResolvers<ContextType = any, ParentType extends ResolversParentTypes['Subscription'] = ResolversParentTypes['Subscription']> = {
   _empty?: SubscriptionResolver<Maybe<ResolversTypes['String']>, "_empty", ParentType, ContextType>;
-  notificationOnIncomingEvent?: SubscriptionResolver<Maybe<Array<ResolversTypes['subData']>>, "notificationOnIncomingEvent", ParentType, ContextType>;
+  notificationOnIncomingEvent?: SubscriptionResolver<Maybe<Array<ResolversTypes['notificationOnIncomingEventData']>>, "notificationOnIncomingEvent", ParentType, ContextType>;
 };
 
 export type EventResolvers<ContextType = any, ParentType extends ResolversParentTypes['Event'] = ResolversParentTypes['Event']> = {
@@ -279,7 +281,7 @@ export type EventResolvers<ContextType = any, ParentType extends ResolversParent
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
-export type SubDataResolvers<ContextType = any, ParentType extends ResolversParentTypes['subData'] = ResolversParentTypes['subData']> = {
+export type NotificationOnIncomingEventDataResolvers<ContextType = any, ParentType extends ResolversParentTypes['notificationOnIncomingEventData'] = ResolversParentTypes['notificationOnIncomingEventData']> = {
   _id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
@@ -303,7 +305,7 @@ export type Resolvers<ContextType = any> = {
   Mutation?: MutationResolvers<ContextType>;
   Subscription?: SubscriptionResolvers<ContextType>;
   Event?: EventResolvers<ContextType>;
-  subData?: SubDataResolvers<ContextType>;
+  notificationOnIncomingEventData?: NotificationOnIncomingEventDataResolvers<ContextType>;
   Task?: TaskResolvers<ContextType>;
 };
 

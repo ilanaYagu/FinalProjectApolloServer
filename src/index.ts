@@ -9,47 +9,35 @@ import { useServer } from 'graphql-ws/lib/use/ws';
 import { PubSub } from 'graphql-subscriptions';
 import Event from './models/Event';
 
-connect('mongodb+srv://admin:admin@cluster0.pkz5a.mongodb.net/project?retryWrites=true&w=majority')
+const CONNECT_MONGO_KEY = 'mongodb+srv://admin:admin@cluster0.pkz5a.mongodb.net/project?retryWrites=true&w=majority';
+
+connect(CONNECT_MONGO_KEY)
   .then(() => console.log('MongoDB Connected'))
   .catch((error: any) => {
     console.log("Unable to connect to the db: " + error.message);
-    return process.exit(1);
   });;
 
 const PORT = 5006
 export const pubsub = new PubSub();
-
 const app = express()
 app.use(cors());
 
 const httpServer = createServer(app);
 const wsServer = new WebSocketServer({
-  // This is the `httpServer` we created in a previous step.
   server: httpServer,
-  // Pass a different path here if your ApolloServer serves at
-  // a different path.
   path: '/graphql',
 });
-const serverCleanup = useServer({ schema }, wsServer);
+useServer({ schema }, wsServer);
 
 const server = new ApolloServer({
-  schema,
-
+  schema
 })
 
-server.start().then((data) => console.log("s"));
-
 server.applyMiddleware({ app })
-
 httpServer.listen(PORT, () => {
-  console.log(
-    `🚀 Query endpoint ready at http://localhost:${PORT}${server.graphqlPath}`
-  );
-  console.log(
-    `🚀 Subscription endpoint ready at ws://localhost:${PORT}${server.subscriptionsPath}`
-  );
+  console.log(`🚀 Query endpoint ready at http://localhost:${PORT}${server.graphqlPath}`);
+  console.log(`🚀 Subscription endpoint ready at ws://localhost:${PORT}${server.subscriptionsPath}`);
 });
-
 
 const notificate = () => {
   try {
