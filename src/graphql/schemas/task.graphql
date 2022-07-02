@@ -25,7 +25,7 @@ type Task {
 
 extend type Query {
   tasks: [Task!]!
-  todayTasks: [Task]!
+  todayTasks: [Task!]!
 }
 
 input TaskInput {

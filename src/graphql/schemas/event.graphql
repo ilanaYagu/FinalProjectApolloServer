@@ -13,7 +13,7 @@ type Event {
 
 extend type Query {
   events: [Event!]!
-  todayEvents: [Event]!
+  todayEvents: [Event!]!
 }
 
 input EventInput {

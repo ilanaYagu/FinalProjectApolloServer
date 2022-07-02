@@ -18,8 +18,8 @@ export type Query = {
   _empty?: Maybe<Scalars['String']>;
   events: Array<Event>;
   tasks: Array<Task>;
-  todayEvents: Array<Maybe<Event>>;
-  todayTasks: Array<Maybe<Task>>;
+  todayEvents: Array<Event>;
+  todayTasks: Array<Task>;
 };
 
 export type Mutation = {
@@ -249,8 +249,8 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   _empty?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   events?: Resolver<Array<ResolversTypes['Event']>, ParentType, ContextType>;
   tasks?: Resolver<Array<ResolversTypes['Task']>, ParentType, ContextType>;
-  todayEvents?: Resolver<Array<Maybe<ResolversTypes['Event']>>, ParentType, ContextType>;
-  todayTasks?: Resolver<Array<Maybe<ResolversTypes['Task']>>, ParentType, ContextType>;
+  todayEvents?: Resolver<Array<ResolversTypes['Event']>, ParentType, ContextType>;
+  todayTasks?: Resolver<Array<ResolversTypes['Task']>, ParentType, ContextType>;
 };
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
